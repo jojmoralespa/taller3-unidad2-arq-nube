@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: mysql-deployment
+
+spec:
+  selector:
+    matchLabels:
+      app: app-mysql
+  replicas: 1
+
+  template:
+    metadata:
+      name: mysql
+      labels:
+        app: app-mysql
+
+    spec:
+      containers:
+        - name: mysql
+          image: jojmoralespa/mysql:v1
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: johan123
+            - name: MYSQL_DATABASE
+              value: wordpress_db
+            - name: MYSQL_USER
+              value: johan
+            - name: MYSQL_PASSWORD
+              value: johan1234
+          ports:
+            - containerPort: 3306
+      #     volumeMounts:
+      #       - name: persistent-storage-nginx
+      #         mountPath: /usr/share/nginx/html
+      # volumes:
+      #   - name: persistent-storage-nginx
+      #     persistentVolumeClaim:
+      #       claimName: pvc-nginx
